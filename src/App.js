@@ -1,34 +1,30 @@
 import {useState} from "react";
 
 function App() {
-    const [state, setState] = useState({city: '', country: ''});
+    const [city, setCity] = useState('');
+    const [country, setCountry] = useState('');
 
-    const handleCityChange = (e) => {
-        setState({...state, city: e.target.value});
-    };
-
-    const handleCountryChange = (e) => {
-        setState({...state, country: e.target.value});
-    };
+    const handleCityChange = (e) => setCity(e.target.value)
+    const handleCountryChange = (e) => setCountry(e.target.value)
 
     return (
        <form>
            <input
                type="text"
-               value={state.city}
+               value={city}
                placeholder="City"
                onChange={handleCityChange}
            />
 
            <input
                type="text"
-               value={state.country}
+               value={country}
                placeholder="Country"
                onChange={handleCountryChange}
            />
 
            <p>
-               You live in { `${state.city}, ${state.country}` }
+               You live in { `${city}, ${country}` }
            </p>
        </form>
     );
