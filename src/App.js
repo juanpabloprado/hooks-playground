@@ -6,21 +6,20 @@ function App() {
 
     const handleCityChange = (e) => setCity(e.target.value)
     const handleCountryChange = (e) => setCountry(e.target.value)
-
     return (
        <form>
            <input
                type="text"
-               value={city}
                placeholder="City"
                onChange={handleCityChange}
+               value={city}
            />
 
            <input
                type="text"
-               value={country}
                placeholder="Country"
                onChange={handleCountryChange}
+               value={country}
            />
 
            <p>
