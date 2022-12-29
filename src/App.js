@@ -1,21 +1,36 @@
 import {useState} from "react";
 
 function App() {
-    const [count, setCount] = useState(0)
+    const [state, setState] = useState({city: '', country: ''});
 
-    const incrementClick = () => setCount(count + 1);
-    // const incrementClick = () => setCount(prevCount => prevCount + 1)
-    const decrementClick = () => setCount(count - 1);
-    // const decrementClick = () => setCount(prevCount => prevCount - 1)
-    const resetClick = () => setCount(0);
+    const handleCityChange = (e) => {
+        setState({...state, city: e.target.value});
+    };
+
+    const handleCountryChange = (e) => {
+        setState({...state, country: e.target.value});
+    };
 
     return (
-       <div>
-           <button onClick={incrementClick}>Increment</button>
-           <button onClick={decrementClick}>Decrement</button>
-           <button onClick={resetClick}>Reset</button>
-           <h1>{count}</h1>
-       </div>
+       <form>
+           <input
+               type="text"
+               value={state.city}
+               placeholder="City"
+               onChange={handleCityChange}
+           />
+
+           <input
+               type="text"
+               value={state.country}
+               placeholder="Country"
+               onChange={handleCountryChange}
+           />
+
+           <p>
+               You live in { `${state.city}, ${state.country}` }
+           </p>
+       </form>
     );
 }
 
