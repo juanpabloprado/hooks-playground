@@ -1,13 +1,16 @@
 import {useState} from "react";
 
 function App() {
-    const [activated, setActivated] = useState(false)
-    const buttonText = activated ? "Active" : "Inactive";
+    const [count, setCount] = useState(0)
 
-    const onClick = () => setActivated(!activated);
+    const handleClick = () => setCount(count + 1);
+    // const handleClick = () => setCount(prevCount => prevCount + 1)
 
     return (
-        <button onClick={onClick}>{buttonText}</button>
+       <div>
+           <button onClick={handleClick}>Increment</button>
+           <h1>{count}</h1>
+       </div>
     );
 }
 
