@@ -1,51 +1,40 @@
-import React, {Component, createContext} from "react";
+import React, {createContext, useContext, useState} from "react";
 
 const NameContext = createContext("");
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: "Juan Pablo Prado"
-        }
-    }
+function App() {
+    const [name] = useState('Billy Shakespeare');
 
-    render() {
-        return (
-            <NameContext.Provider value={this.state.name}>
-                <Child/>
-            </NameContext.Provider>
-        )
-    }
-}
-class Button extends Component {
-    render() {
-        return (
-            <NameContext.Consumer>
-                {name => <button>{name}</button>}
-            </NameContext.Consumer>
-        );
-    }
+    return (
+        <NameContext.Provider value={name}>
+            <Child/>
+        </NameContext.Provider>
+    )
+
 }
 
-class GrandChild extends Component {
-    render() {
-        return (
-            <div className="grandchild">
-                <Button/>
-            </div>
-        )
-    }
+function Child() {
+    return (
+        <section className="child">
+            <GrandChild/>
+        </section>
+    )
 }
 
-class Child extends Component {
-    render() {
-        return (
-            <section className="child">
-                <GrandChild/>
-            </section>
-        )
-    }
+function GrandChild() {
+    return (
+        <div className="grandchild">
+            <Button/>
+        </div>
+    )
+}
+
+function Button() {
+    const name = useContext(NameContext);
+
+    return (
+        <button>{ name }</button>
+    );
 }
 
 export default App;
