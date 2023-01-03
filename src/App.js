@@ -1,36 +1,47 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
-function App() {
+function useCounter(startingCount = 0) {
+    const [count, setCount] = useState(startingCount);
 
-    const userText = useKeyPress('Hello there...');
+    return {
+        count,
+        increment: () => setCount(count + 1),
+        decrement: () => setCount(count - 1)
+    };
+}
+
+function Display(props) {
+    const {count, increment, decrement} = useCounter(props.start);
 
     return (
         <div>
-            <h1>Feel free to type! Your text will show up below!</h1>
-            <blockquote>
-                { userText }
-            </blockquote>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+            <h1>Count: {count}</h1>
         </div>
     )
 }
 
-function useKeyPress(startingValue) {
-    const [userText, setUserText] = useState(startingValue);
+function FancyDisplay(props) {
+    const {count, increment, decrement} = useCounter(props.start);
 
-    const handleUserKeyPress = (event) => {
-        const { key, keyCode } = event;
-        if (keyCode === 32 || (keyCode >= 65 && keyCode <= 90)) {
-            setUserText(`${userText}${key}`);
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener("keydown", handleUserKeyPress);
-        return () => {
-            window.removeEventListener("keydown", handleUserKeyPress);
-        }
-    });
-
-    return userText
+    return (
+        <section>
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+            <h2>Count: {count}</h2>
+        </section>
+    )
 }
+
+function App() {
+    return (
+        <>
+            <Display start={10}/>
+            <Display start={20}/>
+            <FancyDisplay start={30}/>
+        </>
+    )
+}
+
 export default App;
